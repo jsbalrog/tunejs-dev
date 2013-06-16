@@ -20,7 +20,6 @@ jQuery(document).ready(function() {
     loadComplete = true;
   });
 
-
   createjs.Sound.registerManifest(manifest);
   soundInstance = createjs.Sound.createInstance("hth");
   $('.container').on({click: function(e) {
@@ -28,6 +27,12 @@ jQuery(document).ready(function() {
     clearInterval(positionInterval);
     if (curtime < 1) {
       soundInstance.play();
+          
+      // Attach an event listener to when track is finished to change
+      // the button back to play
+      soundInstance.addEventListener("complete", function (e) {
+        $("#pause").replaceWith('<a class="button gradient" id="play" href="" title=""></a>');    
+      });
     }
     else {
       console.log("resuming");
@@ -39,6 +44,12 @@ jQuery(document).ready(function() {
     $('#close').fadeIn(300);
     $('#seek').attr('max',parseInt(soundInstance.getDuration()/1000, 10));
     trackTime();
+
+    $('.container').on("mouseenter", function (e) {
+          $('.player').fadeIn(200);
+        }).on("mouseleave", function (e) {
+          $('.player').fadeOut(200);
+        });
   }}, '#play');
 
   $('.container').on({click: function(e) {
@@ -74,6 +85,7 @@ jQuery(document).ready(function() {
     $("#seek").attr("value", curtime.toString());
     $('#pause').replaceWith('<a class="button gradient" id="play" href="" title=""></a>');
     $('#close').fadeOut(300);
+    $('.container').off("mouseenter mouseleave");
   }}, '#close');
 
   $(".container").bind({change: function() {
