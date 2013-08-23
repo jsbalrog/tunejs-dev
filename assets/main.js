@@ -31,7 +31,7 @@ jQuery(document).ready(function() {
       // Attach an event listener to when track is finished to change
       // the button back to play
       soundInstance.addEventListener("complete", function (e) {
-        $("#pause").replaceWith('<a class="button gradient" id="play" href="" title=""></a>');    
+        $("#pause").replaceWith('<a class="button gradient" id="play" href="" title=""></a>');
       });
     }
     else {
@@ -101,7 +101,7 @@ jQuery(document).ready(function() {
     // attribute! Don't know why...
     $("#seek").val(curtime);
     $("#seek").attr("value", curtime);
-  }})
+  }});
 
   // Set up a position interval to check the position of the song
   // every second. Fire an event accordingly, passing the new
@@ -109,7 +109,7 @@ jQuery(document).ready(function() {
   function trackTime() {
     positionInterval = setInterval(function(event) {
       curtime = (parseInt(soundInstance.getPosition()/1000, 10));
-      $("#seek").trigger("timechange", curtime);            
+      $("#seek").trigger("timechange", curtime);
     }, 1000);
-  }  
+  }
 });
